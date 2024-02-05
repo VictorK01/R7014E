@@ -1,15 +1,17 @@
 % Properties
 A_a = 33;   % Tank cross section
 a = 0.16;   % Outlet cross section
-g = 981;
-h0 = 3.2; 
-h10 = 8;
-Ts = 0.1;
+g = 981;    % Gravity
+h0 = 3.2;   
+h10 = 8;    % Operating point (cm)
+
+Ts = 0.05;
+Np = 0.0001; % Noise power / Variance
 
 % Pump voltage to flow conversion
 fu = [0.5 1 1.5 2 2.5 3 3.5 5 8 10];
 fq = [17.75 21.65 23.76 27.55 30.01 31.98 33.88 38.18 46.28 49.88];
-n = 5.7;      % Linear pump gain
+n = 5.7;      % Linear pump gain at u0
 
 % Water level to sensor voltage conversion
 fh = [3 4 5 6 7 8 9 10 11 12 13 14 15];
@@ -25,3 +27,11 @@ sys = ss(A,B,C,D);
 
 % Discrete state space
 [Ad,Bd,Cd,Dd] = ssdata(c2d(sys, Ts));
+
+% Kalman parameters
+Q = zeros(2);
+R = Np*eye(2);
+N = zeros(2);
+
+x0 = [0 0]';
+P0 = zeros(2);
