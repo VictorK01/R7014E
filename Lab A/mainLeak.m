@@ -20,10 +20,11 @@ fh = [3 4 5 6 7 8 9 10 11 12 13 14 15];
 fv = [0.909 1.685 2.475 3.255 4.055 4.804 5.573 6.332 7.121 7.847 8.617 9.405 10.18];
 
 % State space
-A = [-a1*g/(A_a*sqrt(2*g*(h10+h0))) 0;
-    a1*g/(A_a*sqrt(2*g*(h10+h0))) -a2*g/(A_a*sqrt(2*g*(h10+h0)))];
-B = [n/A_a 0]';
-C = [0 1];
+A = [-a1*g/(A_a*sqrt(2*g*(h10+h0))) 0 -g/(A_a*sqrt(2*g*(h10+h0)));
+    a1*g/(A_a*sqrt(2*g*(h10+h0))) -a2*g/(A_a*sqrt(2*g*(h10+h0))) 0;
+    0 0 0];
+B = [n/A_a 0 0]';
+C = [0 1 0];
 D = 0;
 sys = ss(A,B,C,D);
 
@@ -31,9 +32,9 @@ sys = ss(A,B,C,D);
 [Ad,Bd,Cd,Dd] = ssdata(c2d(sys, Ts));
 
 % Kalman parameters
-Q =  0.1*eye(2);
-R = Np*eye(2);
-N = eye(2);
+Q =  0.1*eye(3);
+R = Np*eye(3);
+N = eye(3);
 
-x0 = [0 0]';
-P0 = zeros(2);
+x0 = [0 0 0]';
+P0 = zeros(3);
