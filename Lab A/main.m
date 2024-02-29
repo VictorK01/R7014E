@@ -1,13 +1,13 @@
 % Properties
 A_a = 35;   % Tank cross section
-a1 = 0.145;   % Outlet cross section
-a2 = 0.155;
+a1 = 0.145;   % Upper outlet cross section
+a2 = 0.155;     % Lower outlet cross section
 g = 981;    % Gravity
-h0 = 3.2;   
-h10 = 7.5;    % Operating point (cm)
-u0 = 1;
+h0 = 3.2;   % Additional height
+h10 = 7.5;    % Linear operating point (cm)
+u0 = 1;     % Operating point pump voltage
 
-Ts = 0.05;
+Ts = 0.05; % sample time
 Np = 0.0001; % Noise power / Variance
 
 % Pump voltage to flow conversion
@@ -19,7 +19,7 @@ n = 7.5;      % Linear pump gain at u0
 fh = [3 4 5 6 7 8 9 10 11 12 13 14 15];
 fv = [0.909 1.685 2.475 3.255 4.055 4.804 5.573 6.332 7.121 7.847 8.617 9.405 10.18];
 
-% State space
+% Linearized State space model
 A = [-a1*g/(A_a*sqrt(2*g*(h10+h0))) 0;
     a1*g/(A_a*sqrt(2*g*(h10+h0))) -a2*g/(A_a*sqrt(2*g*(h10+h0)))];
 B = [n/A_a 0]';

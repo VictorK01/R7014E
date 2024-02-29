@@ -1,5 +1,6 @@
 clear
 
+% Aircraft model
 A = [0 0 1.1320 0 -1.0000;
     0 -0.0538 -0.1712 0 0.0705;
     0 0 0 1.0000 0;
@@ -15,7 +16,7 @@ C = [1 0 0 0 0;
     0 0 1 0 0];
 D = zeros(3);
 
-x0 = [10000 100 0 0 0]';
+x0 = [1000 100 0 0 0]';
 
 states = {'Relative altitude (m)' 'Forward speed (m/s)' 'Pitch angle (deg)' 'Pitch rate (deg/s)' 'Vertical speed (m/s)'};
 inputs = {'Spoiler angle (deg/10)' 'Forward acceleration (m/s2)' 'Elevator angle (deg)'};
@@ -24,3 +25,7 @@ outputs = {'Relative altitude (m)' 'Forward speed (m/s)' 'Pitch angle (deg)'};
 sys = ss(A,B,C,D,'statename',states,'inputname',inputs,'outputname',outputs)
 
 G = tf(sys)
+
+G1 = G(1,1)
+G2 = G(2,3)
+G3 = G(3,2)
