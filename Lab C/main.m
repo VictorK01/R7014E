@@ -1,7 +1,7 @@
 % Properties
 A_a = 35;   % Tank cross section
 a1 = 0.145;   % Outlet cross section
-a2 = 0.155;
+a2 = 0.150;
 g = 981;    % Gravity
 h0 = 3.2;   
 h10 = 7.5;    % Operating point (cm)
@@ -30,10 +30,10 @@ sys = ss(A,B,C,D);
 [Ad,Bd,Cd,Dd] = ssdata(c2d(sys, Ts));
 
 % Kalman parameters
-Q = 0.01*eye(3,3);
-Q(3,3) = 0.0001;
+Q = 0.01*eye(2);
+%Q(3,3) = 0.0001;
 R = Np;
-N = eye(3);
+N = eye(2);
 
-x0 = [-8 -8 0]';
-P0 = zeros(3);
+x0 = [-8 -8]';
+P0 = zeros(2);
